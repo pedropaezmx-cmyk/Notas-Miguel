@@ -411,17 +411,12 @@ label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05
         <div class="fields-row">
           <div>
             <label>Cantidad</label>
-            <input type="text" id="cantidad" placeholder="0" oninput="fmtCantidad(this);calcSub()" inputmode="numeric">
+            <input type="text" id="cantidad" placeholder="0" oninput="fmtCantidad(this)" inputmode="numeric">
           </div>
           <div>
             <label>Precio unit.</label>
-            <input type="text" id="precio" placeholder="0.00" oninput="fmtPrecio(this);calcSub()" inputmode="decimal">
+            <input type="text" id="precio" placeholder="0.00" oninput="fmtPrecio(this)" inputmode="decimal">
           </div>
-        </div>
-
-        <div class="subtotal-row">
-          <span class="sub-label">Subtotal</span>
-          <span class="sub-val" id="subtotal-prev">$0.00</span>
         </div>
 
         <button class="btn btn-primary" onclick="agregarItem()" id="btn-agregar">
