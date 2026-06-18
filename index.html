@@ -743,8 +743,8 @@ function cargarEdicion(id){
 }
 
 function fmtCsv(n){
-  // Formato con separador de miles y 2 decimales para CSV
-  return n.toLocaleString('es-MX',{minimumFractionDigits:2,maximumFractionDigits:2});
+  // Separador de miles con espacio para no confundir con separador de columnas CSV
+  return n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,' ');
 }
 function generarCSV(){
   const fecha=new Date().toLocaleDateString('es-MX');
@@ -811,14 +811,17 @@ function nuevaNota(){
   document.getElementById('filtro').value='';
   document.getElementById('cantidad').value='';
   document.getElementById('precio').value='';
-  document.getElementById('subtotal-prev').textContent='$0.00';
   const lbl=document.getElementById('art-sel-label');
   lbl.textContent='— Ninguno seleccionado —';
   lbl.className='sel-display empty';
   document.querySelectorAll('.talla-box').forEach(b=>b.classList.remove('sel'));
+  document.querySelectorAll('.art-item').forEach(i=>i.classList.remove('selected'));
   document.getElementById('csv-share-box').style.display='none';
-  setBtnAgregar();showMsg('','');
-  updateTotales();renderList();
+  document.getElementById('msg').style.display='none';
+  setBtnAgregar();
+  updateTotales();
+  renderNota();
+  renderList();
   switchTab('agregar');
   toast('✓ Nueva nota iniciada');
 }
