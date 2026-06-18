@@ -749,12 +749,13 @@ function fmtCsv(n){
 function generarCSV(){
   const fecha=new Date().toLocaleDateString('es-MX');
   const total=nota.reduce((s,i)=>s+i.subtotal,0);
-  // Fecha solo en encabezado, no como columna de datos
-  let csv=`Nota de venta - Fecha: ${fecha}\nArticulo,Talla,Cantidad,Precio,Subtotal,Total\n`;
-  nota.forEach((item,idx)=>{
-    const t=idx===nota.length-1?fmtCsv(total):'';
-    csv+=`"${item.articulo}","${item.talla}",${fmtCsv(item.cantidad)},${fmtCsv(item.precio)},${fmtCsv(item.subtotal)},${t}\n`;
+  let csv=`Nota de venta - Fecha: ${fecha}\nArticulo,Talla,Cantidad,Precio,Subtotal\n`;
+  nota.forEach((item)=>{
+    const subtotal=item.cantidad*item.precio;
+    csv+=`"${item.articulo}","${item.talla}",${fmtCsv(item.cantidad)},${fmtCsv(item.precio)},${fmtCsv(subtotal)}\n`;
   });
+  csv+=`,,,,\n`;
+  csv+=`"TOTAL",,,,${fmtCsv(total)}\n`;
   return csv;
 }
 function exportarCSV(){
