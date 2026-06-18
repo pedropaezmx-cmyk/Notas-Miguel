@@ -638,6 +638,8 @@ function agregarItem(){
   }
   showMsg('','');updateTotales();
   document.getElementById('csv-share-box').style.display='none';
+  // Resetear cantidad para el siguiente artículo
+  document.getElementById('cantidad').value='';
 }
 
 function updateTotales(){
@@ -743,8 +745,7 @@ function cargarEdicion(id){
 }
 
 function fmtCsv(n){
-  // Separador de miles con espacio para no confundir con separador de columnas CSV
-  return n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,' ');
+  return n.toFixed(2);
 }
 function generarCSV(){
   const fecha=new Date().toLocaleDateString('es-MX');
@@ -818,11 +819,13 @@ function nuevaNota(){
   document.querySelectorAll('.art-item').forEach(i=>i.classList.remove('selected'));
   document.getElementById('csv-share-box').style.display='none';
   document.getElementById('msg').style.display='none';
-  setBtnAgregar();
   updateTotales();
   renderNota();
   renderList();
+  setBtnAgregar();
   switchTab('agregar');
+  // Forzar refresh visual de la nota
+  setTimeout(()=>{ renderNota(); updateTotales(); },50);
   toast('✓ Nueva nota iniciada');
 }
 function switchTab(t){
