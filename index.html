@@ -638,8 +638,10 @@ function agregarItem(){
   }
   showMsg('','');updateTotales();
   document.getElementById('csv-share-box').style.display='none';
-  // Resetear cantidad para el siguiente artículo
+  // Resetear cantidad y talla para el siguiente artículo
   document.getElementById('cantidad').value='';
+  tallaSeleccionada=null;
+  document.querySelectorAll('.talla-box').forEach(b=>b.classList.remove('sel'));
 }
 
 function updateTotales(){
