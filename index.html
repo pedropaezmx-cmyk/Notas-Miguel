@@ -742,13 +742,18 @@ function cargarEdicion(id){
   showMsg('Editando — modifica y guarda','ok');
 }
 
+function fmtCsv(n){
+  // Formato con separador de miles y 2 decimales para CSV
+  return n.toLocaleString('es-MX',{minimumFractionDigits:2,maximumFractionDigits:2});
+}
 function generarCSV(){
   const fecha=new Date().toLocaleDateString('es-MX');
   const total=nota.reduce((s,i)=>s+i.subtotal,0);
-  let csv='Fecha,Articulo,Talla,Cantidad,Precio,Subtotal,Total\n';
+  // Fecha solo en encabezado, no como columna de datos
+  let csv=`Nota de venta - Fecha: ${fecha}\nArticulo,Talla,Cantidad,Precio,Subtotal,Total\n`;
   nota.forEach((item,idx)=>{
-    const t=idx===nota.length-1?total.toFixed(2):'';
-    csv+=`"${fecha}","${item.articulo}","${item.talla}",${item.cantidad},${item.precio.toFixed(2)},${item.subtotal.toFixed(2)},${t}\n`;
+    const t=idx===nota.length-1?fmtCsv(total):'';
+    csv+=`"${item.articulo}","${item.talla}",${fmtCsv(item.cantidad)},${fmtCsv(item.precio)},${fmtCsv(item.subtotal)},${t}\n`;
   });
   return csv;
 }
